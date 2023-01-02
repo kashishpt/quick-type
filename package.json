@@ -13,7 +13,8 @@
     "onCommand:quick-type.addDoubleQuotes",
     "onCommand:quick-type.addSingleQuotes",
     "onCommand:quick-type.addTickQuotes",
-    "onCommand:quick-type.toMap"
+    "onCommand:quick-type.toMap",
+    "onCommand:quick-type.toArray"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -36,7 +37,12 @@
       {
         "command": "quick-type.toMap",
         "title": "Convert rows of space separated key-value pairs to a map",
-        "category": "Maps"
+        "category": "Data structures"
+      },
+      {
+        "command": "quick-type.toArray",
+        "title": "Convert whitespace separated values to an array",
+        "category": "Data structures"
       }
     ],
     "configuration":[

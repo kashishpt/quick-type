@@ -1,6 +1,6 @@
 const vscode = require('vscode');
 const strings = require('./strings.js')
-const maps = require('./maps.js')
+const dataStructs = require('./data-structs.js')
 
 /**
  * @param {{ subscriptions: vscode.Disposable[]; }} context
@@ -12,7 +12,8 @@ function activate(context) {
 	commands.push(vscode.commands.registerCommand('quick-type.addDoubleQuotes', () => strings.addQuotes('"')))
 	commands.push(vscode.commands.registerCommand('quick-type.addSingleQuotes', () => strings.addQuotes("'")))
 	commands.push(vscode.commands.registerCommand('quick-type.addTickQuotes', () => strings.addQuotes("`")))
-	commands.push(vscode.commands.registerCommand('quick-type.toMap', maps.toMap))
+	commands.push(vscode.commands.registerCommand('quick-type.toMap', dataStructs.toMap))
+	commands.push(vscode.commands.registerCommand('quick-type.toArray', dataStructs.toArray))
 
 
 	for (const command of commands) {
