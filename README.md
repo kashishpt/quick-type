@@ -26,7 +26,7 @@ This extension contributes the following settings:
 
 ## Known Issues
 
-None
+Converting to map in JavaScript creates an object rather than an actual map
 
 ## Release Notes
 

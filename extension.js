@@ -7,18 +7,23 @@ const dataStructs = require('./functions/data-structs.js')
  */
 function activate(context) {
 
-	let commands = []
-
-	commands.push(vscode.commands.registerCommand('quick-type.addDoubleQuotes', () => strings.addQuotes('"')))
-	commands.push(vscode.commands.registerCommand('quick-type.addSingleQuotes', () => strings.addQuotes("'")))
-	commands.push(vscode.commands.registerCommand('quick-type.addTickQuotes', () => strings.addQuotes("`")))
-	commands.push(vscode.commands.registerCommand('quick-type.toMap', dataStructs.toMap))
-	commands.push(vscode.commands.registerCommand('quick-type.toArray', dataStructs.toArray))
-
-
-	for (const command of commands) {
-		context.subscriptions.push(command)
+	let commands = {
+		'quick-type.addDoubleQuotes': ()=>strings.addQuotes('"'),
+		'quick-type.addSingleQuotes': ()=>strings.addQuotes("'"),
+		'quick-type.addTickQuotes': ()=>strings.addQuotes('`'),
+		'quick-type.toMap': dataStructs.toMap,
+		'quick-type.toArray': dataStructs.toArray,
 	}
+
+
+
+	for (const command in commands) {
+		context.subscriptions.push(vscode.commands.registerCommand(command, commands[command]))
+	}
+
+	// for (const command of commands) {
+	// 	context.subscriptions.push(command)
+	// }
 
 }
 
