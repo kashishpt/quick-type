@@ -1,5 +1,5 @@
 const vscode = require('vscode')
-const errors = require('./errors.js')
+const errors = require('../errors.js')
 
 function addQuotes(quote) {
 	const editor = vscode.window.activeTextEditor

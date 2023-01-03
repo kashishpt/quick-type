@@ -1,6 +1,6 @@
 const vscode = require('vscode');
-const strings = require('./strings.js')
-const dataStructs = require('./data-structs.js')
+const strings = require('./functions/strings.js')
+const dataStructs = require('./functions/data-structs.js')
 
 /**
  * @param {{ subscriptions: vscode.Disposable[]; }} context

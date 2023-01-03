@@ -51,7 +51,7 @@
         "properties": {
           "quick-type.wordRegex": {
             "type": "string",
-            "default": "^\\w+",
+            "default": "^(\\w|-)+",
             "description": "Regex for matching words"
           }
         }

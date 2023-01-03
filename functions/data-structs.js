@@ -1,5 +1,5 @@
 const vscode = require('vscode')
-const errors = require('./errors.js')
+const errors = require('../errors.js')
 
 function toMap() {
     const editor = vscode.window.activeTextEditor
@@ -47,13 +47,19 @@ function toMap() {
             for (const pair of pairs) {
                 output += `quickTypeMap[${pair[0]}] = ${pair[1]};\n`
             }
-        } else {
-            output = text;
-            errors.languageNotSupported()
+        } else if (language === 'ruby') {
+            output += '_ = {\n'
+
+            const entries = pairs.map(pair => `\t${pair[0]} => ${pair[1]}`)
+            output += entries.join(',\n') + '\n}'
         }
 
 
-        editor.edit(editBuilder => editBuilder.replace(selectionRange, output))
+        if (output === '') {
+            errors.languageNotSupported()
+        } else {
+            editor.edit(editBuilder => editBuilder.replace(selectionRange, output))
+        }
 
 
     } else {
@@ -73,26 +79,32 @@ function toArray() {
         const items = text.split(/\s+/)
 
         const language = vscode.window.activeTextEditor.document.languageId
-        let output = ""
+        let output = ''
 
         if (language === 'javascript') {
             output = 'let _ = [' + items.join(', ') + ']\n'
-        } else if (language === 'python') {
+        } else if (language === 'python' || language === 'ruby') {
             output = "_ = [" + items.join(', ') + ']\n'
         } else if (language === 'java') {
             output += "ArrayList<E> quickTypeArray = new ArrayList<>();\n"
-
             for (const item of items) {
                 output += `quickTypeArray.add(${item});\n`
             }
         } else if (language === 'cpp') {
-            output += 'list<E>quickTypeList = { ' + items.join(', ') + ' }';
-        } else {
-            output = text;
+            output = 'list<E>quickTypeList = { ' + items.join(', ') + ' };\n';
+        } else if (language === 'ocaml') {
+            output = 'let _  = ' + items.join(';') + ';\n'
+        }
+        
+        
+
+        if (output === '') {
             errors.languageNotSupported()
+        } else {
+            editor.edit(editBuilder => editBuilder.replace(selectionRange, output))
         }
 
-        editor.edit(editBuilder => editBuilder.replace(selectionRange, output))
+        
 
 
 

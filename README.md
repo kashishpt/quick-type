@@ -2,13 +2,18 @@
 
 Provides miscellaneous tools to help you write code quicker!
 
+To use, open the Command Palette (Cmd+Shift+P) and find the feature you would like to use and search for the appropriate category it falls in.
+
 ## Features
 
-- Surround words with quotation marks ', ", or `
-- Quickly convert rows of space separated key-value pairs to a map
-    - Current language support: JavaScript, Python, C++, Java
+`Strings`
+- Surround individual words with quotation marks ', ", or `
+
+`Data structures`
+- Quickly convert rows of whitespace separated key-value pairs to a map
+    - Current language support: JavaScript, Python, Ruby, C++, Java
 - Quickly convert whitespace separated values to an array
-    - Current language support: JavaScript, Python, C++, Java
+    - Current language support: JavaScript, Python, Ruby, C++, Java, OCaml
 
 ## Requirements
 
