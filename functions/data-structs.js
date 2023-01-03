@@ -1,7 +1,7 @@
 const vscode = require('vscode')
 const errors = require('../errors.js')
 
-function toMap() {
+function toMap(input_language) {
     const editor = vscode.window.activeTextEditor
 	const selection = editor.selection
 	const selectionValid = selection && !selection.isEmpty
@@ -16,7 +16,7 @@ function toMap() {
             pairs.push(line.trim().split(' '))
         }
 
-        const language = vscode.window.activeTextEditor.document.languageId
+        const language = input_language === undefined ? vscode.window.activeTextEditor.document.languageId : input_language
         let output = ""
 
         if (language === 'javascript') {
@@ -56,7 +56,10 @@ function toMap() {
 
 
         if (output === '') {
-            errors.languageNotSupported()
+            const feedback = errors.languageNotSupported(['JavaScript', 'Python', 'Java', 'C++', 'Ruby'])
+            if (feedback !== undefined) {
+                toMap(feedback)
+            }
         } else {
             editor.edit(editBuilder => editBuilder.replace(selectionRange, output))
         }
@@ -67,7 +70,7 @@ function toMap() {
     }
 }
 
-function toArray() {
+async function toArray(input_language) {
     const editor = vscode.window.activeTextEditor
 	const selection = editor.selection
 	const selectionValid = selection && !selection.isEmpty
@@ -77,8 +80,7 @@ function toArray() {
 		const text = editor.document.getText(selectionRange).trim();
 
         const items = text.split(/\s+/)
-
-        const language = vscode.window.activeTextEditor.document.languageId
+        const language = input_language === undefined ? vscode.window.activeTextEditor.document.languageId : input_language
         let output = ''
 
         if (language === 'javascript') {
@@ -93,13 +95,17 @@ function toArray() {
         } else if (language === 'cpp') {
             output = 'list<E>quickTypeList = { ' + items.join(', ') + ' };\n';
         } else if (language === 'ocaml') {
-            output = 'let _  = ' + items.join(';') + ';\n'
+            output = 'let _  = [' + items.join(';') + '];\n'
         }
         
         
 
         if (output === '') {
-            errors.languageNotSupported()
+            const feedback = await errors.languageNotSupported(['javascript', 'python', 'java', 'cpp', 'ruby', 'ocaml'])
+            if (feedback !== undefined) {
+                // console.log('here')
+                toArray(feedback)
+            }
         } else {
             editor.edit(editBuilder => editBuilder.replace(selectionRange, output))
         }

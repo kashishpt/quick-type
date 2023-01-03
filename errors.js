@@ -5,8 +5,9 @@ function noHighlightedSection() {
 	vscode.window.showInformationMessage('You must be highlighting some text!');
 }
 
-function languageNotSupported() {
-    vscode.window.showInformationMessage(`Sorry, this feature does not support ${vscode.window.activeTextEditor.document.languageId} `)
+async function languageNotSupported(supported) {
+    const language = vscode.window.activeTextEditor.document.languageId
+    return await vscode.window.showQuickPick(supported, {title: `${language} not supported. You may pick a supported language with similar syntax or Escape to cancel.`})
 }
 
 
