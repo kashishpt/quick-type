@@ -6,7 +6,9 @@ Provides miscellaneous tools to help you write code quicker!
 
 - Surround words with quotation marks ', ", or `
 - Quickly convert rows of space separated key-value pairs to a map
-    - Current language support: JavaScript, Python, Java
+    - Current language support: JavaScript, Python, C++, Java
+- Quickly convert whitespace separated values to an array
+    - Current language support: JavaScript, Python, C++, Java
 
 ## Requirements
 
