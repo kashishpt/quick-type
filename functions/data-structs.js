@@ -1,16 +1,12 @@
 const vscode = require('vscode')
 const errors = require('../errors.js')
+const utils = require('../utils.js')
 
-function toMap(input_language) {
-    const editor = vscode.window.activeTextEditor
-	const selection = editor.selection
-	const selectionValid = selection && !selection.isEmpty
+async function toMap(input_language) {
+    const selection = utils.getSelection()
 
-    if (selectionValid) {
-        const selectionRange = new vscode.Range(selection.start.line, selection.start.character, selection.end.line, selection.end.character);
-		const text = editor.document.getText(selectionRange).trim()
-        
-        const lines = text.split('\n')
+    if (selection !== undefined) {
+        const lines = selection.text.split('\n')
         let pairs = []
         for (let line of lines) {
             pairs.push(line.trim().split(' '))
@@ -20,13 +16,24 @@ function toMap(input_language) {
         let output = ""
 
         if (language === 'javascript') {
-            output += "let _ = {\n"
+            const type = await vscode.window.showQuickPick(['JavaScript Object ({ ... })', 'Map Object'], {title:'Which type of map would you like?'})
 
-            for (const pair of pairs) {
-                output += `\t${pair[0]}: ${pair[1]},\n`
+            if (type === 'JavaScript Object ({ ... })') {
+                output += "let _ = {\n"
+
+                for (const pair of pairs) {
+                    output += `\t${pair[0]}: ${pair[1]},\n`
+                }
+
+                output += "}"
+            } else if (type === 'Map Object') {
+                output += 'const quicktypeMap = new Map()\n'
+                for (const pair of pairs) {
+                    output += `quicktypeMap.set(${pair[0]}, ${pair[1]})\n`
+                }
+            } else {
+                output = selection.text
             }
-
-            output += "}"
         } else if (language === 'python') {
             output += "_ = {\n"
 
@@ -61,7 +68,7 @@ function toMap(input_language) {
                 toMap(feedback)
             }
         } else {
-            editor.edit(editBuilder => editBuilder.replace(selectionRange, output))
+            selection.editor.edit(editBuilder => editBuilder.replace(selection.range, output))
         }
 
 
@@ -71,15 +78,11 @@ function toMap(input_language) {
 }
 
 async function toArray(input_language) {
-    const editor = vscode.window.activeTextEditor
-	const selection = editor.selection
-	const selectionValid = selection && !selection.isEmpty
+    const selection = utils.getSelection()
 
-    if (selectionValid) {
-        const selectionRange = new vscode.Range(selection.start.line, selection.start.character, selection.end.line, selection.end.character);
-		const text = editor.document.getText(selectionRange).trim();
+    if (selection !== undefined) {
 
-        const items = text.split(/\s+/)
+        const items = selection.text.split(/\s+/)
         const language = input_language === undefined ? vscode.window.activeTextEditor.document.languageId : input_language
         let output = ''
 
@@ -88,32 +91,46 @@ async function toArray(input_language) {
         } else if (language === 'python' || language === 'ruby') {
             output = "_ = [" + items.join(', ') + ']\n'
         } else if (language === 'java') {
-            output += "ArrayList<E> quickTypeArray = new ArrayList<>();\n"
-            for (const item of items) {
-                output += `quickTypeArray.add(${item});\n`
+            const option = await vscode.window.showQuickPick(['Java Array', 'ArrayList'], {title:'Which type of array would you like?'})
+
+            if (option === 'Java Array') {
+                output += 'type[] quickPickArray = { ' + items.join(', ') + ' };'
+            } else if (option === 'ArrayList') {
+                output += "ArrayList<E> quickTypeArray = new ArrayList<>();\n"
+                for (const item of items) {
+                    output += `quickTypeArray.add(${item});\n`
+                }   
+            } else {
+                output = selection.text
             }
+
         } else if (language === 'cpp') {
-            output = 'list<E>quickTypeList = { ' + items.join(', ') + ' };\n';
+            const option = await vscode.window.showQuickPick(['C++ Array', 'Vector'], {title:'Which type of array would you like?'})
+            
+            if (option === 'Vector') {
+                output += 'vector<E> quickpickVector;\n'
+
+                for (const item of items) {
+                    output += 'quickpickVector.push_back(' + item + ');\n'
+                }
+            } else if (option === 'C++ array') {
+                output += 'type quickpickArray[] = {' + items.join(', ') + '};\n'
+            } else {
+                output = selection.text
+            }
         } else if (language === 'ocaml') {
             output = 'let _  = [' + items.join(';') + '];\n'
         }
-        
         
 
         if (output === '') {
             const feedback = await errors.languageNotSupported(['javascript', 'python', 'java', 'cpp', 'ruby', 'ocaml'])
             if (feedback !== undefined) {
-                // console.log('here')
                 toArray(feedback)
             }
         } else {
-            editor.edit(editBuilder => editBuilder.replace(selectionRange, output))
+            selection.editor.edit(editBuilder => editBuilder.replace(selection.range, output))
         }
-
-        
-
-
-
     }
 }
 
