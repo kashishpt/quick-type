@@ -1,4 +1,4 @@
-# quick-type README
+# [quick-type](https://marketplace.visualstudio.com/items?itemName=kashish.quick-type)
 
 Provides miscellaneous tools to help you write code quicker!
 
