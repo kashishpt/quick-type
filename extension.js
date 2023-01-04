@@ -17,6 +17,7 @@ function activate(context) {
 
 
 
+
 	for (const command in commands) {
 		context.subscriptions.push(vscode.commands.registerCommand(command, commands[command]))
 	}
