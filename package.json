@@ -1,6 +1,6 @@
 {
   "name": "quick-type",
-  "displayName": "quick-type",
+  "displayName": "Quick type",
   "description": "",
   "version": "0.0.1",
   "engines": {
@@ -77,5 +77,6 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:kashishpt/quick-type.git"
-  }
+  },
+  "publisher": "kashish"
 }
