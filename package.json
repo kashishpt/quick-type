@@ -49,10 +49,15 @@
       {
         "title": "Regex",
         "properties": {
-          "quick-type.wordRegex": {
+          "quick-type.stringRegex": {
             "type": "string",
             "default": "^(\\w|-)+",
-            "description": "Regex for matching words"
+            "description": "Regex for matching words in string functions"
+          },
+          "quick-type.keyValueRegex": {
+            "type": "string",
+            "default": "^\\s*([\\w-]+|'.+'|`.+`|\".+\")",
+            "description": "Regex for matching values in data structure functions"
           }
         }
       }

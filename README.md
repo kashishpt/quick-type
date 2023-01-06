@@ -26,14 +26,19 @@ This extension contributes the following settings:
 
 ## Known Issues
 
-Converting to map in JavaScript creates an object rather than an actual map
+None
 
 ## Release Notes
 
 Users appreciate release notes as you update your extension.
 
+### 0.0.3
+
+- Support for different types of maps
+- Added option to choose from different languages when user is not using a supported language
+
 ### 0.0.1
 
-Initial release
+- Initial release
 
 **Enjoy!**

@@ -24,7 +24,12 @@ function getSelection() {
     
 }
 
+function settings() {
+    return vscode.workspace.getConfiguration('quick-type')
+}
+
 
 module.exports = {
-    getSelection
+    getSelection,
+    settings
 }
