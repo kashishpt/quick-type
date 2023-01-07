@@ -54,7 +54,7 @@
             "default": "^(\\w|-)+",
             "description": "Regex for matching words in string functions"
           },
-          "quick-type.keyValueRegex": {
+          "quick-type.valueRegex": {
             "type": "string",
             "default": "[\\w-]+|'.*'|`.*`|\".*\"",
             "description": "Regex for matching values in data structure functions"

@@ -6,7 +6,7 @@ async function toMap(input_language) {
     const selection = utils.getSelection()
 
     if (selection !== undefined) {
-        const regexp = new RegExp(utils.settings()['keyValueRegex'], 'g')
+        const regexp = new RegExp(utils.settings()['valueRegex'], 'g')
         const matches = [...selection.text.matchAll(regexp)]
         let pairs = []
         for (let i= 0; i < matches.length; i+=2) {
@@ -88,8 +88,7 @@ async function toArray(input_language) {
     const selection = utils.getSelection()
 
     if (selection !== undefined) {
-
-        const items = selection.text.split(/\s+/)
+        const items = selection.text.matchAll(new RegExp(utils.settings()['valueRegex'], 'g'))
         const language = input_language === undefined ? vscode.window.activeTextEditor.document.languageId : input_language
         let output = ''
 
