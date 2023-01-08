@@ -24,7 +24,8 @@ None
 ## Extension Settings
 
 This extension contributes the following settings:
-* `quick-type.wordRegex`: Defines the regex that defines a single word for string functions
+* `quick-type.stringRegex`: Defines the regex for a single word for string functions
+* `quick-type.valueRegex`: Defines the regex for a single value for data structure function
 
 ## Known Issues
 
