@@ -36,12 +36,12 @@
       },
       {
         "command": "quick-type.toMap",
-        "title": "Convert rows of space separated key-value pairs to a map",
+        "title": "Convert key-value pairs to a map",
         "category": "Data structures"
       },
       {
         "command": "quick-type.toArray",
-        "title": "Convert whitespace separated values to an array",
+        "title": "Convert values to an array",
         "category": "Data structures"
       }
     ],
@@ -56,7 +56,7 @@
           },
           "quick-type.valueRegex": {
             "type": "string",
-            "default": "[\\w-]+|'.*'|`.*`|\".*\"",
+            "default": "[\\w-]+|'[^']*'|`[^`]*`|\"[^\"]*\"",
             "description": "Regex for matching values in data structure functions"
           }
         }

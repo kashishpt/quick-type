@@ -26,7 +26,7 @@ async function toMap(input_language) {
             const type = await vscode.window.showQuickPick(['JavaScript Object ({ ... })', 'Map Object'], {title:'Which type of map would you like?'})
 
             if (type === 'JavaScript Object ({ ... })') {
-                output += "let _ = {\n"
+                output += "{\n"
 
                 for (const pair of pairs) {
                     output += `\t${pair[0]}: ${pair[1]},\n`
@@ -42,7 +42,7 @@ async function toMap(input_language) {
                 output = selection.text
             }
         } else if (language === 'python') {
-            output += "_ = {\n"
+            output += "{\n"
 
             for (const pair of pairs) {
                 output += `\t${pair[0]}: ${pair[1]},\n`
@@ -62,7 +62,7 @@ async function toMap(input_language) {
                 output += `quickTypeMap[${pair[0]}] = ${pair[1]};\n`
             }
         } else if (language === 'ruby') {
-            output += '_ = {\n'
+            output += '{\n'
 
             const entries = pairs.map(pair => `\t${pair[0]} => ${pair[1]}`)
             output += entries.join(',\n') + '\n}'
@@ -88,14 +88,15 @@ async function toArray(input_language) {
     const selection = utils.getSelection()
 
     if (selection !== undefined) {
-        const items = selection.text.matchAll(new RegExp(utils.settings()['valueRegex'], 'g'))
+        const items = [...selection.text.matchAll(new RegExp(utils.settings()['valueRegex'], 'g'))]
+        console.log(items)
         const language = input_language === undefined ? vscode.window.activeTextEditor.document.languageId : input_language
         let output = ''
 
         if (language === 'javascript') {
-            output = 'let _ = [' + items.join(', ') + ']\n'
+            output = '[' + items.join(', ') + ']\n'
         } else if (language === 'python' || language === 'ruby') {
-            output = "_ = [" + items.join(', ') + ']\n'
+            output = "[" + items.join(', ') + ']\n'
         } else if (language === 'java') {
             const option = await vscode.window.showQuickPick(['Java Array', 'ArrayList'], {title:'Which type of array would you like?'})
 
@@ -125,7 +126,7 @@ async function toArray(input_language) {
                 output = selection.text
             }
         } else if (language === 'ocaml') {
-            output = 'let _  = [' + items.join(';') + '];\n'
+            output = '[' + items.join(';') + ']\n'
         }
         
 

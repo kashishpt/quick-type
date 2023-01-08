@@ -4,29 +4,27 @@ const utils = require('../utils.js')
 
 
 function addQuotes(quote) {
-	const editor = vscode.window.activeTextEditor
-	const selection = editor.selection
-	const selectionValid = selection && !selection.isEmpty
+	const selection = utils.getSelection()
 	
-	if (selectionValid) {
-		const selectionRange = new vscode.Range(selection.start.line, selection.start.character, selection.end.line, selection.end.character);
-		const text = editor.document.getText(selectionRange);
+	if (selection !== undefined) {
 		let output = ""
 		let index = 0
 		output = ""
-		while (index < text.length) {
-			const match = text.substring(index).match(new RegExp('(' + utils.settings()['wordRegex'] + ')'))
+		const regex = new RegExp('(' + utils.settings()['stringRegex'] + ')')
+		while (index < selection.text.length) {
+			const match = selection.text.substring(index).match(regex)
 			if (match != null) {
 				output += quote + match[0] + quote
 				index += match[0].length
 			} else {
-				output += text[index]
+				output += selection.text[index]
 				index += 1
 			}
 		}
-		editor.edit(editBuilder => editBuilder.replace(selectionRange, output))
+		selection.editor.edit(editBuilder => editBuilder.replace(selection.range, output))
 
 	} else {
+		console.log('error')
 		errors.noHighlightedSection()
 	}
 }

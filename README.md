@@ -15,6 +15,8 @@ To use, open the Command Palette (Cmd+Shift+P) and find the feature you would li
 - Quickly convert whitespace separated values to an array
     - Current language support: JavaScript, Python, Ruby, C++, Java, OCaml
 
+![GIF showing features](./quick-type-demo.gif)
+
 ## Requirements
 
 None
