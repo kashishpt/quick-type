@@ -35,6 +35,10 @@ None
 
 Users appreciate release notes as you update your extension.
 
+### 0.0.4
+
+- Bug fixes
+
 ### 0.0.3
 
 - Support for different types of maps
