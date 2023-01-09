@@ -1,9 +1,17 @@
 # Change Log
 
-All notable changes to the "quick-type" extension will be documented in this file.
+## [0.1.0]
+- Users no longer have to highlight a portion of text to apply a function on it.
+    - The extension will automatically read in values after the cursor until it reaches EOF or a whitespace line
+- Updated default RegEx's to match strings containing whitespace
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [0.0.4]
+- Bug fixes
 
-## [Unreleased]
+## [0.0.3]
+- Added option for different maps
+- Added option to choose a different language when the user is not using a supported one
+
+## [0.0.1]
 
 - Initial release

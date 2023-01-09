@@ -1,8 +1,8 @@
 {
   "name": "quick-type",
   "displayName": "Quick type",
-  "description": "",
-  "version": "0.0.3",
+  "description": "Shortcuts that do the typing for you",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -21,27 +21,27 @@
     "commands": [
       {
         "command": "quick-type.addDoubleQuotes",
-        "title": "Convert words to strings (\"string\")",
+        "title": "Convert words to strings (\"\")",
         "category": "Strings"
       },
       {
         "command": "quick-type.addSingleQuotes",
-        "title": "Convert words to strings ('string')",
+        "title": "Convert words to strings ('')",
         "category": "Strings"
       },
       {
         "command": "quick-type.addTickQuotes",
-        "title": "Convert words to strings (`string`)",
+        "title": "Convert words to strings (``)",
         "category": "Strings"
       },
       {
         "command": "quick-type.toMap",
-        "title": "Convert key-value pairs to a map",
+        "title": "Convert key-value pairs to a map/dictionary",
         "category": "Data structures"
       },
       {
         "command": "quick-type.toArray",
-        "title": "Convert values to an array",
+        "title": "Convert values to an array/vector",
         "category": "Data structures"
       }
     ],
@@ -51,13 +51,23 @@
         "properties": {
           "quick-type.stringRegex": {
             "type": "string",
-            "default": "^(\\w|-)+",
+            "default": "^[^\\s]+",
             "description": "Regex for matching words in string functions"
           },
           "quick-type.valueRegex": {
             "type": "string",
-            "default": "[\\w-]+|'[^']*'|`[^`]*`|\"[^\"]*\"",
+            "default": "[^\\s'`\"]+|'[^']*'|`[^`]*`|\"[^\"]*\"",
             "description": "Regex for matching values in data structure functions"
+          }
+        }
+      },
+      {
+        "title": "Reading Values",
+        "properties": {
+          "quick-type.readUntilEnd": {
+            "type": "boolean",
+            "default": "true",
+            "description": "Read values until EOF or whitespace line when there is no highlighted text. If false, only read one line"
           }
         }
       }

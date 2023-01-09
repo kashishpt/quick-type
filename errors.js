@@ -7,7 +7,7 @@ function noHighlightedSection() {
 
 async function languageNotSupported(supported) {
     const language = vscode.window.activeTextEditor.document.languageId
-    return await vscode.window.showQuickPick(supported, {title: `${language} not supported. You may pick a supported language with similar syntax or Escape to cancel.`})
+    return await vscode.window.showQuickPick(supported, {placeHolder: `"${language}" is not supported. Please select another language or Escape to cancel.`})
 }
 
 

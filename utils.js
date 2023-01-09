@@ -19,7 +19,26 @@ function getSelection() {
             editor: editor
         }
     } else {
-        return undefined
+        const cursor = editor.selection.active
+        let endPosition = new vscode.Position(cursor.line, 0)
+
+        if (settings()['readUntilEnd']) {
+            const whiteline = /^\s*$/
+            const lines = vscode.window.activeTextEditor.document.lineCount
+            while (endPosition.line < lines && editor.document.getText(editor.document.lineAt(endPosition).range).trim().match(whiteline) === null) {
+                endPosition = endPosition.translate(1, 0)
+            }
+
+        } else {
+            endPosition = new vscode.Position(cursor.line, editor.document.getText(editor.document.lineAt(endPosition).range).length)
+        }
+
+        const range = new vscode.Range(cursor, endPosition)
+        return {
+            range: range,
+            text: editor.document.getText(range).trim(),
+            editor: editor
+        }
     }
     
 }
