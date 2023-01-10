@@ -2,7 +2,7 @@
   "name": "quick-type",
   "displayName": "Quick type",
   "description": "Shortcuts that do the typing for you",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -64,10 +64,10 @@
       {
         "title": "Reading Values",
         "properties": {
-          "quick-type.readUntilEnd": {
+          "quick-type.readMultipleLines": {
             "type": "boolean",
-            "default": "true",
-            "description": "Read values until EOF or whitespace line when there is no highlighted text. If false, only read one line"
+            "default": "false",
+            "description": "Read multiple lines until EOF or a whitespace line. If false, only read one line."
           }
         }
       }

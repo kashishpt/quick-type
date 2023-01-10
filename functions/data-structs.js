@@ -8,7 +8,6 @@ async function toMap(input_language) {
     if (selection !== undefined) {
         const regexp = new RegExp(utils.settings()['valueRegex'], 'g')
         const matches = [...selection.text.matchAll(regexp)]
-        console.log(matches)
         let pairs = []
         for (let i= 0; i < matches.length; i+=2) {
             if (i === matches.length - 1) {

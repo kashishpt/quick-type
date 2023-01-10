@@ -19,21 +19,51 @@ function getSelection() {
             editor: editor
         }
     } else {
-        const cursor = editor.selection.active
-        let endPosition = new vscode.Position(cursor.line, 0)
-
-        if (settings()['readUntilEnd']) {
+        
+        const currentLine = editor.document.lineAt(editor.selection.active.line).range
+        let startPosition = new vscode.Position(currentLine.start.line, 0)
+        let endPosition = startPosition
+        if (settings()['readMultipleLines']) {
             const whiteline = /^\s*$/
+
+            let text = getText(editor.document.lineAt(startPosition).range)
+            while (text.match(whiteline) === null && startPosition.line > 0) {
+                startPosition = startPosition.translate(-1, 0)
+                text = getText(editor.document.lineAt(startPosition).range)
+            }
+
+            if (text.match(whiteline) !== null) {
+                startPosition = startPosition.translate(1, 0)
+                text = getText(editor.document.lineAt(startPosition).range)
+            }
+            const equal = /^[^=]*=\s*/
+
+            if (text.includes("=")) {
+                startPosition = startPosition.translate(0, text.match(equal)[0].length)
+            }
+
+            text = getText(editor.document.lineAt(endPosition).range)
             const lines = vscode.window.activeTextEditor.document.lineCount
-            while (endPosition.line < lines && editor.document.getText(editor.document.lineAt(endPosition).range).trim().match(whiteline) === null) {
+            while (text.match(whiteline) === null && endPosition.line < lines - 1) {
                 endPosition = endPosition.translate(1, 0)
+                text = getText(editor.document.lineAt(endPosition).range)
+            }
+
+            if (endPosition.line === lines - 1) {
+                endPosition = endPosition.translate(0, editor.document.getText(editor.document.lineAt(editor.selection.active.line).range).length)
             }
 
         } else {
-            endPosition = new vscode.Position(cursor.line, editor.document.getText(editor.document.lineAt(endPosition).range).length)
+            let text = getText(currentLine)
+            const equal = /^[^=]*=\s*/
+            if (text.includes("=")) {
+                startPosition = startPosition.translate(0, text.match(equal)[0].length)
+            }
+
+            endPosition = endPosition.translate(0, text.length)
         }
 
-        const range = new vscode.Range(cursor, endPosition)
+        const range = new vscode.Range(startPosition, endPosition)
         return {
             range: range,
             text: editor.document.getText(range).trim(),
@@ -45,6 +75,10 @@ function getSelection() {
 
 function settings() {
     return vscode.workspace.getConfiguration('quick-type')
+}
+
+function getText(range) {
+    return vscode.window.activeTextEditor.document.getText(range)
 }
 
 

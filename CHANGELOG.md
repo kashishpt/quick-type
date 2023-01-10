@@ -2,6 +2,10 @@
 
 ### *0.1*
 
+*0.1.2*
+- Functions now apply left and right of the cursor
+- Added option to read multiple lines or single
+
 *0.1.1*
 - Fixed README.md typo
 

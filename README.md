@@ -4,7 +4,7 @@
 
 Provides miscellaneous tools to help you create strings, arrays, and maps!
 
-To use, open the Command Palette (Cmd+Shift+P) and find the feature you would like to use and search for the appropriate category it falls in. The functions will apply to highlighted text, and if there is no highlighted text they will apply to all values until EOF or a whitespace line by default.
+To use, open the Command Palette (Cmd+Shift+P) and find the feature you would like to use and search for the appropriate category it falls in. The functions will apply to highlighted text, and if there is no highlighted text they search before the cursor until a whitespace line or the start of the file, and after the cursor until a whitespace line or EOF
 
 If you have any suggestions, please open an issue in the Github repository
 
