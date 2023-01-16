@@ -1,25 +1,25 @@
-# quick-type
+# Quick Type - Shortcuts that do the typing for you
 
-[Views on VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=kashish.quick-type)
-
-Provides miscellaneous tools to help you create strings, arrays, and maps!
-
-To use, open the Command Palette (Cmd+Shift+P) and find the feature you would like to use and search for the appropriate category it falls in. The functions will apply to highlighted text, and if there is no highlighted text they search before the cursor until a whitespace line or the start of the file, and after the cursor until a whitespace line or EOF
-
-If you have any suggestions, please open an issue in the Github repository
+[View on VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=kashish.quick-type)
 
 ## Features
 
-`Strings`
-- Surround individual words with quotation marks ', ", or `
+### Strings
+- Surround individual words with ""
+- Surround individual words with ''
+- Surround individual words with ``
 
-`Data structures`
+### Data structures
 - Quickly convert rows of whitespace separated key-value pairs to a map
     - Current language support: JavaScript, Python, Ruby, C++, Java
 - Quickly convert whitespace separated values to an array
     - Current language support: JavaScript, Python, Ruby, C++, Java, OCaml
 
 ![GIF showing features](https://s3.gifyu.com/images/quick-type-0.1.0.gif)
+
+To use, open the Command Palette (Cmd+Shift+P) and find the feature you would like to use and search for the appropriate category it falls in. The functions will apply to highlighted text, and if there is no highlighted text they search before the cursor until a whitespace line or the start of the file, and after the cursor until a whitespace line or EOF
+
+If you have any suggestions, please open an issue in the Github repository
 
 ## Extension Settings
 
@@ -50,5 +50,7 @@ None-- if you find one, please open an issue in the Github repository :)
 ### 0.0.1
 
 - Initial release
+
+Thank you to Vecteezy.com for providing the logo
 
 **Enjoy!**

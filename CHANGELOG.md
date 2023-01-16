@@ -2,6 +2,10 @@
 
 ### *0.1*
 
+*0.1.3*
+- Added logo
+- Redesigned a few things in README.md
+
 *0.1.2*
 - Functions now apply left and right of the cursor
 - Added option to read multiple lines or single
